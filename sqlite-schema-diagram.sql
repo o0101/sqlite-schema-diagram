@@ -1,14 +1,3 @@
--- Run this as:
---
--- sqlite3 -list path/to/database < sqlite-schema-diagram.sql > schema.dot
---
--- ...then render the schema.dot file to an image using your favourite
--- GraphViz tool.  I like using "xdot" for interactive use.
---
--- Note the "-list" option! This is important, it makes sure the
--- command-line tool doesn't get any of its own formatting in the
--- GraphViz output.
-
 -- We start a GraphViz graph
 SELECT '
 digraph structs {
