@@ -1,5 +1,5 @@
-schema.svgz: schema.dot
-	dot -Tsvgz -oschema.svgz schema.dot
+schema.svg: schema.dot
+	dot -Tsvg -oschema.svg schema.dot
 
 schema.dot: database.sqlite3 ../sqlite-schema-diagram.sql
 	sqlite3 -list database.sqlite3 < ../sqlite-schema-diagram.sql > schema.dot
