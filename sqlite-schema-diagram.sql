@@ -15,6 +15,19 @@ digraph structs {
 '
 UNION ALL
 
+-- Normally, GraphViz' "dot" command lays out a hierarchical graph from
+-- top to bottom.  However, we aren't just laying out individual nodes,
+-- each node is a vertical list of database fields.  To prevent GraphViz
+-- from snaking arrows all over the place, we constrain it to draw
+-- incoming references on the left of each field, and outgoing references
+-- on the right.  Since that's the way references flow for each database
+-- table, we tell GraphViz to lay the whole graph out left-to-right,
+-- which makes its job much easier and produces prettier output.
+SELECT '
+rankdir="LR"
+'
+UNION ALL
+
 
 -- By default, nodes have circles around them.  We will draw our own
 -- tables below, we do not want the circles.
@@ -59,15 +72,10 @@ SELECT
     -- tells you that table field's order in the (potentially composite)
     -- primary key.
     --
-    -- We also add ports to each of the table cells.  GraphViz's normal
-    -- approach is to draw graph edges from the centre of one node to the
-    -- centre of another, then draw the arrow head at the place where
-    -- the line pierces the node's outline.  Here, our field names are
-    -- packed closely together in a table, so GraphViz's approach gets
-    -- very messy very quickly.  Being able to constrain edges to be
-    -- drawn at the left and right sides of the table, and have incoming
-    -- edges always on the left and outgoing edges always on the right,
-    -- really helps keep things tidy.
+    -- We also add ports to each of the table cells, so that we can
+    -- later tell GraphViz to specifically connect the ports representing
+    -- specific fields in each table, instead of connecting the tables
+    -- generally.
     END || '
                 <TR>
                     <TD PORT="' || i.name || '_to">' ||
