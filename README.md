@@ -37,10 +37,12 @@ You can save it to a file,
 or just pipe it to the GraphViz `dot` command
 to convert it to your favourite output format: PNG, SVG, PDF, whatever.
 
-    sqlite3 -list path/to/database.db < sqlite-schema-diagram.sql > schema.dot
+    sqlite3 path/to/database.db -init sqlite-schema-diagram.sql "" > schema.dot
     dot -Tsvg schema.dot > schema.svg
 
-**Note:** when invoking `sqlite3`, use the `-list` option.
+**Note:** `sqlite3` is invoked with the `-init` option
+that tells it to read a file at startup,
+and an empty query string that makes it start up in non-interactive mode.
 That turns off any extra output formatting `sqlite3` might do
 that would interfere with the GraphViz syntax.
 
